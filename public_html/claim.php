@@ -9,14 +9,12 @@ if (!isset($_GET['c_page'])) {
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf8">
   <link rel="stylesheet" type="text/css" href="form.css" media="all">
+  <link rel="stylesheet" type="text/css" href="loader.css" media="all">
   <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="js/calendar.js"></script>
   <script type="text/javascript" src="js/view.js"></script>
   <script type="text/javascript" src="js/search.js"></script>
 </head>
-
-
-
 
 <?php
 $cl=$_GET['c_page'];
@@ -80,17 +78,29 @@ if ($rws!='') {
 }
 ?>
 
+
+
 <script>
 	function scanfolder($dir) {
 	  $files1 = scandir($dir);
 	}
 
+
+function ShowLoader(){
+   $('#loader').css("visibility","visible");
+PopUpHide();
+
+}
+
 	function PopUpShow() {
-	  $("#form_52193").show();
+	  // $("#form_52193").show();
+$('#form_52193').css("visibility","visible");
+
 	}
 
 	function PopUpHide() {
-	  $("#form_52193").hide();
+	  // $("#form_52193").hide();
+    $('#form_52193').css("visibility","hidden");
 	}
 
 	function handleResponse(mes) {
@@ -116,11 +126,17 @@ function  Close_claim(){
 
 <body>
 	<script>
-		$(document).ready(function() {
-		  PopUpHide();
-		})
+		// $(document).ready(function() {
+    // })
+
+    $(window).load(function() {
+      $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+      PopUpHide();
+    });
+
+
 	</script>
-	<form id="form_52193" class="fcontainer" enctype="multipart/form-data" visible="false" method="post"  action="upload.php" target="hiddenframe" onsubmit="PopUpHide()">
+	<form id="form_52193" class="fcontainer" enctype="multipart/form-data" visible="false" method="post"  action="upload.php" target="hiddenframe" onsubmit="ShowLoader()">
   <ul>
     <li id="li_2">
       <label class="description" for="artikul">Артикул </label>
@@ -191,5 +207,13 @@ function  Close_claim(){
   </ul>
 </form>
 	<iframe id="hiddenframe" name="hiddenframe" style="width:0px; height:0px; border:0px"></iframe>
+
+  <div class="cssload-thecube" id="loader">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
+
 </body>
 </html>

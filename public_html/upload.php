@@ -36,6 +36,13 @@ echo $res;
 <html>
 <head>
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="loader.css" media="all">
 </head>
 <body>
+  <div class="cssload-thecube" id="loader">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
 </body>

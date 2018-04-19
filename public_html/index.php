@@ -16,7 +16,7 @@ $count = count($rows);
 $ind = count($ind);
 
 echo '<form id="form_812401" class="form-container" enctype="multipart/form-data" method="post" action="search.php"  />';
-echo '<input name="add" class="submit-button" type="button" value="Новая заявка"  onclick="new_claim()" />';
+echo '<input name="add" class="submit-button" type="button" value="Новая заявка"  onclick="PopUpShow()" />';
 echo '<input id="cp" name="c_page" value="' . $current_sheet . '" type="HIDDEN" />';
 echo '</form>';
 echo '<table class="claim_table"  border="1"  cellspacing="0" cellpadding="0" >';
@@ -39,6 +39,7 @@ echo '</table>';
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="form.css" media="all">
+	<link rel="stylesheet" type="text/css" href="loader.css" media="all">
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="js/calendar.js"></script>
 	<script type="text/javascript" src="js/view.js"></script>
@@ -55,13 +56,23 @@ echo '</table>';
     window.open(loc, '_self');
   }
 
-	function PopUpShow() {
-	  $("#form_52193").show();
-	}
+  function ShowLoader(){
+     $('#loader').css("visibility","visible");
+  PopUpHide();
 
-	function PopUpHide() {
-	  $("#form_new_claim").hide();
-	}
+  }
+
+  	function PopUpShow() {
+  	  // $("#form_52193").show();
+  $('#form_new_claim').css("visibility","visible");
+
+  	}
+
+  	function PopUpHide() {
+  	  // $("#form_52193").hide();
+      $('#form_new_claim').css("visibility","hidden");
+  	}
+
 
 	function handleResponse(mes) {
 
@@ -77,6 +88,7 @@ console.log(num);
   }
 
   function add_claim(){
+    ShowLoader();
     PopUpHide();
 //    var num=  $('#form_new_claim :input[name="claim_num"]').text().trim();
 
@@ -153,4 +165,13 @@ console.log(num);
 </form>
 
 	<iframe id="hiddenframe" name="hiddenframe" style="width:0px; height:0px; border:0px"></iframe>
+
+  <div class="cssload-thecube" id="loader">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
+
+
 </body>

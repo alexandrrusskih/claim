@@ -61,6 +61,7 @@ td img{
 }
 
 .fcontainer {
+  visibility: hidden;
     border: 1px solid #000000;
     background: #ffc7c7;
     background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#c7c7c7));
@@ -987,6 +988,7 @@ div.calendar {
     .form-container br{
         display: none;
     }
+
     .form-container hr{
         display: none ;
     }
@@ -996,16 +998,13 @@ div.calendar {
     }
 
     table{
-        margin-top: 40px;
+        margin-top: 42px;
         font-size: 12;
-border-collapse:collapse; padding:0;
+        border-collapse:collapse; padding:0;
     }
-
-
 
     tr{
      page-break-inside: avoid;
-
  }
 
  td{
