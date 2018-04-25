@@ -3,7 +3,7 @@ require_once 'database.php';
 if (!isset($_GET['c_page'])) {
     $_GET['c_page'] = 1;
 }
-
+// $row = DB::run("SET NAMES utf8");
 $cl=$_GET['c_page'];
 $rows= array();
 $sql = "SELECT * FROM `claim_table` ORDER BY ind DESC ";
@@ -27,7 +27,7 @@ while ($row = $title->fetch(PDO::FETCH_LAZY)) {
     $ind=$row['ind'];
     $date= date("d.m.Y", strtotime($row['date']));
     echo '<tr>';
-    echo '<td ondblclick="open_claim(this)"; style="width:280px";"><strong> Заявка №' . $num . '</strong>  </td>';
+    echo '<td onclick="open_claim(this)"; style="width:280px";"><strong> Заявка №' . $num . '</strong>  </td>';
     echo '<td style=" width:200px; padding:10;  ">' . $date. ' </td>';
     echo '<td style="visibility: hidden; border:none;">' . $ind. ' </td>';
     echo '</tr>';
@@ -48,6 +48,7 @@ echo '</table>';
 <script>
 
   function open_claim(row) {
+         $('#loader').css("visibility","visible");
     var $row = $(row);
     var $rw = $row.parents('tbody tr');
     var ind = $rw.children('td');
@@ -98,9 +99,6 @@ console.log(num);
     //    window.open(loc, '_self');
   }
 
-	function edit_row() {
-
-	}
 
 </script>
 <body>

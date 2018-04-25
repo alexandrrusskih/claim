@@ -48,6 +48,10 @@ if ($rws!='') {
     echo '<table  border="1"  cellspacing="0" cellpadding="0" >';
     echo '<tbody>';
 
+    echo '  <tr>';
+    echo '<th>&nbsp;</th><th>Артикул</th><th>Размер</th><th>Проба</th><th>Вставка</th><th>Примечание</th>';
+    echo '</tr>';
+
     for ($i = 0; $i < $count; $i++) {
         $row = DB::run("SELECT * FROM claim_row WHERE ind=?", [$rows[$i]])->fetch();
         $art = $row['artikul'];
@@ -55,12 +59,13 @@ if ($rws!='') {
         $color = $row['colour'];
         $probe = $row['probe'];
         $size = $row['size'];
+        $gemm = $row['gemm'];
         $num=$row['numer'];
         $ind=$row['ind'];
         $comment = $row['comment'];
         $imga = 'foto/' . $art . '.jpg';
-        echo '<tr>';
-        echo '<td  ondblclick="PopUpShow()"><img src="' . $imga . '" /></td>';
+        echo '<tr  ondblclick="deleteRow(this)">';
+        echo '<td ><img src="' . $imga . '" /></td>';
         echo '<td style="width:200px";"><strong>' . $art . '</strong></br><hr>' . $type . ' </td>';
         if ($size) {
             echo '<td style= padding:10px "><strong>' . $size . '<strong> </td>';
@@ -68,9 +73,8 @@ if ($rws!='') {
             echo '<td > </td>';
         }
         echo '<td style ="padding:10">' . $probe . '<hr>' . $color . '    </td>';
-        echo '<td style=" padding:20; ">' . $num . ' </td>';
-        echo '<td style=" width:300px;  padding:10; " </td>';
-        echo '<td style=" padding:10; ">' . $comment . ' </td>';
+        echo '<td style="width:200px;  padding:10; ">' . $gemm . ' </td>';
+        echo '<td style="width:200px;  padding:10; ">' . $comment . ' </td>';
         echo '</tr>';
     }
     echo '</tbody>';
@@ -84,6 +88,61 @@ if ($rws!='') {
 	function scanfolder($dir) {
 	  $files1 = scandir($dir);
 	}
+
+
+function deleteRow(row) {
+  var rIndex = row.rowIndex;
+
+ $('#deleteRow').css("visibility","visible");
+ $('#deleteRow :input[name="action"]').val("del");
+ var rws = "<?php echo $rws ?>";
+ var ind = <?php echo $cl ?>;
+var pat=/\d+/gi;
+// console.log(rws);
+
+var newRws='';
+var myArray = rws.match(pat);
+var n=1;
+for (var i = 0; i < myArray.length; i++) {
+if (i+1!=rIndex)newRws=newRws+myArray[i]+",";
+}
+newRws=newRws.slice(0,-1);
+ // var drow=myArray[(rIndex-1)];
+ // console.log(newRws);
+
+ $('#deleteRow :input[name="drow"]').val(myArray[(rIndex-1)]);
+ $('#deleteRow :input[name="rows"]').val(newRws);
+ $('#deleteRow :input[name="claim"]').val(ind);
+
+
+}
+
+
+function edit_row(row){
+$row=$(row) ;
+var cells = $row.children();
+var txt=$(cells[1]).text().trim();
+var pat=/\d+/;
+var myArray = pat.exec(txt);
+$('#form_52193 :input[name="artikul"]').val(myArray[0]);
+ pat=/\D+/;
+ myArray = pat.exec(txt);
+$('#form_52193 :input[name="vid"]').val(myArray[0]);
+txt=$(cells[2]).text().trim();  //-size
+$('#form_52193 :input[name="size"]').val(txt);
+txt=$(cells[3]).text().trim();
+pat=/\d+/;
+myArray = pat.exec(txt);
+$('#form_52193 :input[name="probe"]').val(myArray[0]);
+pat=/\D+/;
+myArray = pat.exec(txt);
+$('#form_52193 :input[name="gold"]').val(myArray[0]);
+txt=$(cells[4]).text().trim();  //font-size
+$('#form_52193 :input[name="gemm"]').val(txt);
+txt=$(cells[5]).text().trim();  //font-size
+$('#form_52193 :input[name="comment"]').val(txt);
+PopUpShow();
+}
 
 
 function ShowLoader(){
@@ -101,6 +160,7 @@ $('#form_52193').css("visibility","visible");
 	function PopUpHide() {
 	  // $("#form_52193").hide();
     $('#form_52193').css("visibility","hidden");
+    $('#deleteRow').css("visibility","hidden");
 	}
 
 	function handleResponse(mes) {
@@ -120,22 +180,33 @@ function  Close_claim(){
   window.open(loc, '_self');
   }
 
-	function edit_row() {
-	}
 </script>
 
 <body>
 	<script>
-		// $(document).ready(function() {
-    // })
-
     $(window).load(function() {
       $("html, body").animate({ scrollTop: $(document).height() }, 1000);
       PopUpHide();
     });
-
-
 	</script>
+
+  <form id="deleteRow" class="fcontainer" style="width:auto; top:350px; left:50%;" enctype="multipart/form-data" visible="false" method="post" target="hiddenframe" action="upload.php" onsubmit="ShowLoader()">
+  <ul>
+    <li id="li_2">
+      <label class="description" for="artikul">Удалить строку? </label>
+    </li>
+    <li class="buttons">
+      <input type="hidden" name="rows" value="" />
+      <input type="hidden" name="claim" value="" />
+      <input type="hidden" name="action" value="" />
+      <input type="hidden" name="drow" value="" />
+      <input type="hidden" name="form_id" value="52193" />
+      <input id="saveForm" class="submit-button" type="submit" name="submit" value="Да" />
+      <input onclick="PopUpHide()" class="submit-button" type="button" name="submit" value="Нет" />
+    </li>
+  </ul>
+</form>
+
 	<form id="form_52193" class="fcontainer" enctype="multipart/form-data" visible="false" method="post"  action="upload.php" target="hiddenframe" onsubmit="ShowLoader()">
   <ul>
     <li id="li_2">
@@ -179,16 +250,17 @@ function  Close_claim(){
 					</select>
       </div>
     </li>
-    <li id="li_8">
-      <label class="description" for="number">Количество</label>
-      <div>
-        <input id="number" name="number" class="element text medium" type="text" maxlength="255" value="" />
-      </div>
-    </li>
+
     <li id="li_4">
       <label class="description" for="size">Размер</label>
       <div>
         <input id="size" name="size" class="element text medium" type="text" maxlength="255" value="" />
+      </div>
+    </li>
+    <li id="li_8">
+      <label class="description" for="gemm"> Вставка </label>
+      <div>
+        <input id="gemm" name="gemm" class="element text medium" type="text" maxlength="255" value="" />
       </div>
     </li>
     <li id="li_6">
@@ -197,6 +269,7 @@ function  Close_claim(){
         <input id="comment" name="comment" class="element text medium" type="text" maxlength="255" value="" />
       </div>
     </li>
+
     <li class="buttons">
       <input type="hidden" name="rows" value="" />
       <input type="hidden" name="claim" value="" />

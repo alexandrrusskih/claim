@@ -10,6 +10,10 @@
     height: 40px;
 }
 
+table tr:hover{
+  cursor: pointer;
+}
+
 table{
     margin-top: 130px;
     font-size:14pt;
@@ -21,6 +25,11 @@ td{
     vertical-align: middle;
     background-color: #eeeeee;
     /*width: 150%;*/
+}
+th{
+  background-color: #eeeeee;
+  font-size:12pt;
+  height: 40px;
 }
 
 .tc{
@@ -79,7 +88,7 @@ td img{
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
     text-decoration: none;
     vertical-align: middle;
-    min-width: 300px;
+    min-width: 100px;
     padding: 20px;
     width: 600px;
     z-index: 1000;
@@ -1009,6 +1018,8 @@ div.calendar {
 
  td{
     background-color: #ffffff;
+    font-size: 18pt;
+    /* font-weight: bold; */
 }
 
 td img{

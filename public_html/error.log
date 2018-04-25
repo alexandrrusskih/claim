@@ -229,3 +229,44 @@ Stack trace:
 #1 C:\Winginx\home\claim\public_html\upload.php(32): DB::run('UPDATE claim_ta...', Array)
 #2 {main}
   thrown in C:\Winginx\home\claim\public_html\database.php on line 40
+[24-Apr-2018 09:22:24 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'artikul' cannot be null in C:\Winginx\home\claim\public_html\upload.php:20
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(20): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 20
+[24-Apr-2018 09:27:35 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'artikul' cannot be null in C:\Winginx\home\claim\public_html\upload.php:23
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(23): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 23
+[24-Apr-2018 09:29:18 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'artikul' cannot be null in C:\Winginx\home\claim\public_html\upload.php:25
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(25): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 25
+[24-Apr-2018 09:29:38 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'artikul' cannot be null in C:\Winginx\home\claim\public_html\upload.php:25
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(25): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 25
+[24-Apr-2018 09:45:14 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'artikul' cannot be null in C:\Winginx\home\claim\public_html\upload.php:23
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(23): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 23
+[25-Apr-2018 06:31:15 UTC] PHP Fatal error:  Uncaught Error: Cannot use object of type PDOStatement as array in C:\Winginx\home\claim\public_html\index.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\Winginx\home\claim\public_html\index.php on line 13
+[25-Apr-2018 07:14:53 UTC] PHP Fatal error:  Uncaught Error: Cannot use object of type PDOStatement as array in C:\Winginx\home\claim\public_html\index.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\Winginx\home\claim\public_html\index.php on line 13
+[25-Apr-2018 07:15:34 UTC] PHP Fatal error:  Uncaught Error: Cannot use object of type PDOStatement as array in C:\Winginx\home\claim\public_html\index.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\Winginx\home\claim\public_html\index.php on line 13
+[25-Apr-2018 07:16:16 UTC] PHP Fatal error:  Uncaught Error: Cannot use object of type PDOStatement as array in C:\Winginx\home\claim\public_html\index.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\Winginx\home\claim\public_html\index.php on line 13

@@ -7,25 +7,35 @@ $artikul= $_POST['artikul'];
 $probe= $_POST['probe'];
 $gold= $_POST['gold'];
 $size= $_POST['size'];
+$gemm= $_POST['gemm'];
 $comment= $_POST['comment'];
 $vid= $_POST['vid'];
-$num= $_POST['number'];
+$num= 1;
 $rws=$_POST['rows'];
 $claim=$_POST['claim'];
+$drow=$_POST['drow'];
 
-$stmt = DB::run("SET NAMES utf8");
-$stmt = DB::prepare('INSERT INTO claim_row VALUES (?,?,?,?,?,?,?,NULL,?)');
-$arg=['',$artikul, $size, $probe, $vid, $gold, $num, $comment];
-$stmt->execute($arg);
+$new=$rws;
 
-$stmt = DB::run('SELECT LAST_INSERT_ID()')->fetch();
-$v=strval($stmt['LAST_INSERT_ID()']);
+if ($_POST['action'] !="del") {
+    $stmt = DB::run("SET NAMES utf8");
+    $stmt = DB::prepare('INSERT INTO claim_row VALUES (?,?,?,?,?,?,?,NULL,?,?)');
+    $arg=['',$artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment];
+    $stmt->execute($arg);
 
-if ($rws!='') {
-    $new=$rws.','.$v;
+    $stmt = DB::run('SELECT LAST_INSERT_ID()')->fetch();
+    $v=strval($stmt['LAST_INSERT_ID()']);
+
+    if ($rws!='') {
+        $new=$rws.','.$v;
+    } else {
+        $new=$v;
+    }
 } else {
-    $new=$v;
+    // $stmt = DB::run("DELETE FROM claim_row  WHERE ind=?", [ $drow]);
 }
+
+
 
 $stmt = DB::run("UPDATE claim_table SET row=? WHERE ind=?", [$new, $claim]);
 $res = '<script type="text/javascript">';
