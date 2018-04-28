@@ -32,7 +32,7 @@ if ($_POST['action'] !="del") {
         $new=$v;
     }
 } else {
-    // $stmt = DB::run("DELETE FROM claim_row  WHERE ind=?", [ $drow]);
+    $stmt = DB::run("DELETE FROM claim_row  WHERE ind=?", [ $drow]);
 }
 
 

@@ -85,6 +85,9 @@ if ($rws!='') {
 
 
 <script>
+
+var xmlhttp1;
+
 	function scanfolder($dir) {
 	  $files1 = scandir($dir);
 	}
@@ -114,8 +117,30 @@ newRws=newRws.slice(0,-1);
  $('#deleteRow :input[name="rows"]').val(newRws);
  $('#deleteRow :input[name="claim"]').val(ind);
 
-
 }
+
+
+function getData(){
+
+var art= $('#form_52193 :input[name="artikul"]').val();
+if (window.XMLHttpRequest) xmlhttp1 = new XMLHttpRequest();
+else
+	if (window.ActiveXObject) xmlhttp1 = new ActiveXObject("Microsoft.XMLHTTP");
+else alert("Извините! Ваш браузер не поддерживает XMLHTTP!");
+var url = "parseXML.php?art=" +art;
+xmlhttp1.open("GET", url, true);
+xmlhttp1.send();
+xmlhttp1.onreadystatechange = getXML;
+}
+
+function getXML() {
+  	if (xmlhttp1.readyState == 4) {
+  		if (xmlhttp1.responseText) {
+  			var resp = xmlhttp1.responseText.replace("\r\n", "");
+  			console.log(resp);
+  		}
+  	}
+  }
 
 
 function edit_row(row){
@@ -212,7 +237,8 @@ function  Close_claim(){
     <li id="li_2">
       <label class="description" for="artikul">Артикул </label>
       <div>
-        <input id="artikul" name="artikul" class="element text medium" type="text" maxlength="255" value="" />
+        <!-- <input id="artikul" name="artikul" onchange="getData()" class="element text medium" type="text" maxlength="255" value="" /> -->
+        <input id="artikul" name="artikul"  class="element text medium" type="text" maxlength="255" value="" />
       </div>
     </li>
     <li id="li_3">
@@ -223,6 +249,7 @@ function  Close_claim(){
           <option value="Белое" >Белое</option>
           <option value="Желтое" >Желтое</option>
           <option value="БЗ+ЖЗ" >БЗ+ЖЗ</option>
+          <option value="Евро" >Евро</option>
         </select>
       </div>
     </li>

@@ -6,6 +6,7 @@ if (!isset($_GET['c_page'])) {
 // $row = DB::run("SET NAMES utf8");
 $cl=$_GET['c_page'];
 $rows= array();
+
 $sql = "SELECT * FROM `claim_table` ORDER BY ind DESC ";
 $title = DB::run($sql);
 $rws=$row['row'];
@@ -15,7 +16,7 @@ $rows = explode(",", $rws);
 $count = count($rows);
 $ind = count($ind);
 
-echo '<form id="form_812401" class="form-container" enctype="multipart/form-data" method="post" action="search.php"  />';
+echo '<form id="form_812401" " class="form-container" enctype="multipart/form-data" method="post" action="search.php"  />';
 echo '<input name="add" class="submit-button" type="button" value="Новая заявка"  onclick="PopUpShow()" />';
 echo '<input id="cp" name="c_page" value="' . $current_sheet . '" type="HIDDEN" />';
 echo '</form>';
@@ -75,10 +76,12 @@ echo '</table>';
   	}
 
 
+
+
 	function handleResponse(mes) {
 
 num=mes.indx;
-console.log(num);
+// console.log(num);
     var loc = "claim.php?c_page=" + num.toString();
     window.open(loc, '_self');
     // window.location.reload();
@@ -116,7 +119,7 @@ console.log(num);
 	  })
     </script>
 
-  <form id="form_new_claim" class="fcontainer" style="width:100px;" enctype="multipart/form-data" visible="false" method="post" target="hiddenframe"  action="new_claim.php" onsubmit="add_claim()">
+  <form id="form_new_claim" class="fcontainer" style="width:300px;" enctype="multipart/form-data" visible="false" method="post" target="hiddenframe"  action="new_claim.php" onsubmit="add_claim()">
   <ul>
     <li id="li_2">
       <label class="description" for="claim_num">Номер заявки </label>
