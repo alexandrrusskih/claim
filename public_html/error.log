@@ -339,3 +339,18 @@ Stack trace:
 [27-Apr-2018 06:55:06 UTC] PHP   1. {main}() C:\Winginx\home\claim\public_html\parseXML.php:0
 [27-Apr-2018 06:55:06 UTC] PHP   2. SimpleXMLElement->xpath(*uninitialized*) C:\Winginx\home\claim\public_html\parseXML.php:4
 [27-Apr-2018 07:21:53 UTC] PHP Parse error:  syntax error, unexpected ''VI'' (T_CONSTANT_ENCAPSED_STRING), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in C:\Winginx\home\claim\public_html\parseXML.php on line 6
+[18-May-2018 06:32:41 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'probe' at row 1 in C:\Winginx\home\claim\public_html\upload.php:24
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(24): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 24
+[18-May-2018 12:45:05 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'colour' at row 1 in C:\Winginx\home\claim\public_html\upload.php:41
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(41): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 41
+[18-May-2018 12:48:41 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'type' cannot be null in C:\Winginx\home\claim\public_html\upload.php:41
+Stack trace:
+#0 C:\Winginx\home\claim\public_html\upload.php(41): PDOStatement->execute(Array)
+#1 {main}
+  thrown in C:\Winginx\home\claim\public_html\upload.php on line 41

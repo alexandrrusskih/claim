@@ -501,27 +501,33 @@
 			"file": "/C/Winginx/home/support/public_html/index.php",
 			"settings":
 			{
-				"buffer_size": 6614,
+				"buffer_size": 6582,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "<?php\n// require_once('checkAuth.php');\nrequire_once('database.php');\n?>\n<html>\n<head>\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/form.css\" media=\"all\">\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/view.css\" media=\"all\">\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\" media=\"all\">\n\t<script type=\"text/javascript\" src=\"js/jquery-2.1.1.min.js\"></script>\n\t<script type=\"text/javascript\" src=\"calendar.js\"></script>\n\t<script type=\"text/javascript\" src=\"view.js\"></script>\n\t<script type=\"text/javascript\" src=\"js/tablesorter/jquery.metadata.js\"></script>\n\t<script type=\"text/javascript\" src=\"js/tablesorter/jquery.tablesorter.js\"></script>\n\t<script type=\"text/javascript\" src=\"js/tablesorter/addons/pager/jquery.tablesorter.pager.js\"></script>\n\t<script type=\"text/javascript\" src=\"js/tablesorter/jquery.tablesorter.widgets.js\"></script>\n\t<script type=\"text/javascript\" src=\"js/tablesorter/widgets/widget-print.js\"></script>\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/table.css\" media=\"all\">\n</head>\n<body>\n\n\t<script>\n\t\t$(document).ready(function(){\n\t\t\tvar get_session=\"<?php echo $_SESSION['login']?>\";\n\t\t\tPopUpHide();\n\t\t\t$(\"table\")\n\t\t\t.tablesorter({\n\t\t\t\tsortList: [[0,1]],\n\t\t\t\twidgets: [\"print\"],\n\t\t\t\twidgetOptions : {\n\t\t\t\t      print_title      : '',          // this option > caption > table id > \"table\"\n\t\t\t\t      print_dataAttrib : 'data-name', // header attrib containing modified header name\n\t\t\t\t      print_rows       : 'a',         // (a)ll, (v)isible or (f)iltered\n\t\t\t\t      print_columns    : 'a',         // (a)ll, (v)isible or (s)elected (columnSelector widget)\n\t\t\t\t      print_extraCSS   : '',          // add any extra css definitions for the popup window here\n\t\t\t\t      print_styleSheet : '', // add the url of your print stylesheet\n\t\t\t\t      print_callback   : null\n\t\t\t\t  }\n\t\t\t\t}\n\t\t\t\t)\n\t\t\t.tablesorterPager({container: $(\"#pager\")});\n\t\t})\n\n\n\t\tfunction PopUpShow(){\n\t\t\t$(\"#form_812401\").show();\n\t\t}\n\t\tfunction PopUpHide(){\n\t\t\t$(\"#form_812401\").hide();\n\t//\t\tdocument.getElementById(\"form_812401\").reset();\n}\n\nfunction newItem(){\n\tdocument.getElementById(\"form_812401\").reset();\n\t$('#form_812401 :input[name=\"jew_id\"]').val(\"new\");\n\t$('#lbl')[0].textContent=\"Новое изделие\";\n\t$('#form_812401 :input[name=\"jew_id\"]').val(\"new\");\n\t$('#li_5')[0].style.display=\"none\";\n\t$('#li_4')[0].style.display=\"none\";\n\t$('#li_3')[0].style.display=\"none\";\n\t$('#li_10')[0].style.display=\"none\";\n\tPopUpShow();\n}\n\n\nfunction editTable(button) {\n\t$('#li_5')[0].style.display = \"block\";\n\t$('#li_4')[0].style.display = \"block\";\n\t$('#li_3')[0].style.display = \"block\";\n\t$('#li_10')[0].style.display = \"block\";\n\t$('#lbl')[0].textContent = \"Редактирование\";\n\tvar $button = $(button);\n\tvar $row = $button.parents('tbody tr');\n\tvar selectSupport = document.getElementById(\"element_10\");\n\tvar selectPolymer = document.getElementById(\"polymer\");\n\tvar cells = $row.children('td');\n\tvar rIndex = $button.parent().parent()[0].rowIndex;\n\tvar plm = $row[0].className;\n\t$('#form_812401 :input[name=\"element_8\"]').val($(cells[1]).text().trim());\n\tif ($('td#support')[0]) {\n\t\tletter = $(cells[$('td#support')[0].cellIndex]).text();\n\t\tfor (var i = 0; i < selectSupport.length; i++) {\n\t\t\tif (selectSupport.options[i].value == letter) selectSupport.selectedIndex = i;\n\t\t}\n\t}\n\tfor (var i = 0; i < selectPolymer.length; i++) {\n\t\tif (selectPolymer.options[i].value == plm) selectPolymer.selectedIndex = i;\n\t}\n\tjw = $('td#jew_id')[0].cellIndex;\n\t$('#form_812401 :input[name=\"login\"]').val($(cells[$('p#usr')[0].cellIndex]).text().trim());\n\t$('#form_812401 :input[name=\"element_6\"]').val($(cells[$('td#comment')[0].cellIndex]).text().trim());\n\t$('#form_812401 :input[name=\"jew_id\"]').val($(cells[jw]).text().trim());\n\t$('#form_812401 :input[name=\"row_id\"]').val(rIndex);\n\t$('#form_812401 :input[name=\"indx\"]').val($(cells[$('td#ind')[0].cellIndex]).text().trim());\n\tttime = $(cells[$('td#prod_date')[0].cellIndex]).text();\n\ttms = ttime.split(\".\");\n\t$('#form_812401 :input[name=\"element_2_3\"]').val(tms[2]);\n\t$('#form_812401 :input[name=\"element_2_1\"]').val(tms[1]);\n\t$('#form_812401 :input[name=\"element_2_2\"]').val(tms[0]);\n\tttime = $(cells[$('td#start_print')[0].cellIndex]).text();\n\ttms = ttime.split(\".\");\n\t$('#form_812401 :input[name=\"element_3_3\"]').val(tms[2]);\n\t$('#form_812401 :input[name=\"element_3_1\"]').val(tms[1]);\n\t$('#form_812401 :input[name=\"element_3_2\"]').val(tms[0]);\n\tttime = $(cells[$('td#end_print')[0].cellIndex]).text();\n\ttms = ttime.split(\".\");\n\t$('#form_812401 :input[name=\"element_4_3\"]').val(tms[2]);\n\t$('#form_812401 :input[name=\"element_4_1\"]').val(tms[1]);\n\t$('#form_812401 :input[name=\"element_4_2\"]').val(tms[0]);\n\tttime = $(cells[$('td#cast')[0].cellIndex]).text();\n\ttms = ttime.split(\".\");\n\t$('#form_812401 :input[name=\"element_5_3\"]').val(tms[2]);\n\t$('#form_812401 :input[name=\"element_5_1\"]').val(tms[1]);\n\t$('#form_812401 :input[name=\"element_5_2\"]').val(tms[0]);\n\tPopUpShow();\n}\n\n\n\nfunction hideBtn(){\n\t$('#upload').hide();\n\t$('#res').html(\"Идет загрузка файла\");\n}\n\nfunction handleResponse(mes) {\n\tvar table = document.getElementById('activeTable');\n\tif (mes.act == \"add\") {\n\t\tvar rows = table.rows;\n\t\tvar tbd = table.tBodies[0];\n\t\tvar firstRow = rows[1];\n\t\tvar clone = firstRow.cloneNode(true);\n\t\ttbd.appendChild(clone);\n\t\tmes.row_id = rows.length - 1;\n\t}\n\tvar row_id = mes.row_id;\n\tvar x = document.getElementById(\"activeTable\").rows[row_id].cells;\n\tdocument.getElementById(\"activeTable\").rows[row_id].className = mes.polymer;\n\tlen = x.length;\n\tif (mes.img_filename != \"\") {\n\t\td = '<img class=\"r_image\" src=\"' + mes.img_path + mes.img_filename + '\"> ';\n\t\tx[2].innerHTML = d;\n\t}\n\tx[1].textContent = mes.element_8;\n\tif (mes.element_10 != \"\") x[$('td#support')[0].cellIndex].textContent = mes.element_10;\n\td = mes.element_2_2 + \".\" + mes.element_2_1 + \".\" + mes.element_2_3;\n\tx[$('td#prod_date')[0].cellIndex].textContent = d;\n\td = mes.element_3_2 + \".\" + mes.element_3_1 + \".\" + mes.element_3_3;\n\tx[$('td#start_print')[0].cellIndex].textContent = d;\n\td = mes.element_4_2 + \".\" + mes.element_4_1 + \".\" + mes.element_4_3;\n\tx[$('td#end_print')[0].cellIndex].textContent = d;\n\td = mes.element_5_2 + \".\" + mes.element_5_1 + \".\" + mes.element_5_3;\n\tx[$('td#cast')[0].cellIndex].textContent = d;\n\tx[$('td#comment')[0].cellIndex].textContent = mes.element_6;\n\tif (mes.act == \"add\") {\n\t\tx[0].textContent = mes.indx;\n\t\tx[len - 1].textContent = mes.num_id;\n\t\td = \"<button id='shb' onCLick=editTable(this); > <img src='pencil.png' width=24px  style='vertical-align: middle' ></button>\";\n\t\tx[len - 2].innerHTML = d;\n\t}\n\t$(\"#activeTable\").trigger(\"update\");\n\t$(\"#activeTable\").trigger(\"sortRestart\");\n\tdocument.getElementById(\"form_812401\").reset();\n}\n\n</script>\n\n<form id=\"form_812401\" class=\"form-container\" enctype=\"multipart/form-data\" method=\"post\" action=\"upload.php\" visible=\"false\" target=\"hiddenframe\" onsubmit=\"PopUpHide()\">\n\t<div class=\"form_description\">\n\t\t<label id=\"lbl\" class=\"description\">Редактирование </label>\n\t</div>\n\t<ul>\n\t\t<li id=\"li_8\">\n\t\t\t<label class=\"description\" for=\"element_8\">Артикул </label>\n\t\t\t<div>\n\t\t\t\t<input id=\"element_8\" name=\"element_8\" class=\"element text medium\" type=\"text\" maxlength=\"255\" value=\"\" />\n\t\t\t</div>\n\t\t</li>\n\t\t<li id=\"li_1\">\n\t\t\t<label class=\"description\" for=\"element_1\">Изображение </label>\n\t\t\t<div>\n\t\t\t\t<input id=\"element_1\" name=\"image_file\" class=\"element file\" type=\"file\" accept=\"image/jpeg,image/png,image/gif\" />\n\t\t\t</div>\n\t\t\t<label class=\"description\" for=\"element_1_1\">STL </label>\n\t\t\t<div>\n\t\t\t\t<input id=\"element_1_1\" name=\"stl_file[]\" class=\"element file\" multiple=\"multiple\" type=\"file\" accept=\".stl\" />\n\t\t\t</div>\n\t\t</li>\n\t\t<li id=\"li_2\">\n\t\t\t<label class=\"description\" for=\"element_2\">Дата подготовки </label>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_2_2\" name=\"element_2_2\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_2_2\">DD</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_2_1\" name=\"element_2_1\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_2_1\">MM</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_2_3\" name=\"element_2_3\" class=\"element text\" size=\"4\" maxlength=\"4\" value=\"\" type=\"text\">/\n\t\t\t\t<label for=\"element_2_3\">YYYY</label>\n\t\t\t</span>\n\n\t\t\t<span id=\"calendar_2\">\n\t\t\t\t<img id=\"cal_img_2\" class=\"datepicker\" src=\"calendar.gif\" alt=\"Pick a date.\">\n\t\t\t</span>\n\t\t\t<script type=\"text/javascript\">\n\t\t\t\tCalendar.setup(\n\t\t\t\t{\n\t\t\t\t\tinputField: \"element_2_3\",\n\t\t\t\t\tbaseField: \"element_2\",\n\t\t\t\t\tdisplayArea: \"calendar_2\",\n\t\t\t\t\tbutton: \"cal_img_2\",\n\t\t\t\t\tifFormat: \"%B %e, %Y\",\n\t\t\t\t\tonSelect: selectDate\n\t\t\t\t});\n\t\t\t</script>\n\t\t</li>\n\t\t<li id=\"li_3\">\n\t\t\t<label class=\"description\" for=\"element_3\">Дата печати </label>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_3_2\" name=\"element_3_2\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_3_2\">DD</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_3_1\" name=\"element_3_1\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_3_1\">MM</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_3_3\" name=\"element_3_3\" class=\"element text\" size=\"4\" maxlength=\"4\" value=\"\" type=\"text\">/\n\t\t\t\t<label for=\"element_3_3\">YYYY</label>\n\t\t\t</span>\n\t\t\t<span id=\"calendar_3\">\n\t\t\t\t<img id=\"cal_img_3\" class=\"datepicker\" src=\"calendar.gif\" alt=\"Pick a date.\">\n\t\t\t</span>\n\t\t\t<script type=\"text/javascript\">\n\t\t\t\tCalendar.setup(\n\t\t\t\t{\n\t\t\t\t\tinputField: \"element_3_3\",\n\t\t\t\t\tbaseField: \"element_3\",\n\t\t\t\t\tdisplayArea: \"calendar_3\",\n\t\t\t\t\tbutton: \"cal_img_3\",\n\t\t\t\t\tifFormat: \"%B %e, %Y\",\n\t\t\t\t\tonSelect: selectDate\n\t\t\t\t});\n\t\t\t</script>\n\t\t</li>\n\t\t<li id=\"li_4\">\n\t\t\t<label class=\"description\" for=\"element_4\">Дата снятия с печати </label>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_4_2\" name=\"element_4_2\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_4_2\">DD</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_4_1\" name=\"element_4_1\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_4_1\">MM</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_4_3\" name=\"element_4_3\" class=\"element text\" size=\"4\" maxlength=\"4\" value=\"\" type=\"text\">/\n\t\t\t\t<label for=\"element_4_3\">YYYY</label>\n\t\t\t</span>\n\t\t\t<span id=\"calendar_4\">\n\t\t\t\t<img id=\"cal_img_4\" class=\"datepicker\" src=\"calendar.gif\" alt=\"Pick a date.\">\n\t\t\t</span>\n\t\t\t<script type=\"text/javascript\">\n\t\t\t\tCalendar.setup(\n\t\t\t\t{\n\t\t\t\t\tinputField: \"element_4_3\",\n\t\t\t\t\tbaseField: \"element_4\",\n\t\t\t\t\tdisplayArea: \"calendar_4\",\n\t\t\t\t\tbutton: \"cal_img_4\",\n\t\t\t\t\tifFormat: \"%B %e, %Y\",\n\t\t\t\t\tonSelect: selectDate\n\t\t\t\t});\n\t\t\t</script>\n\t\t</li>\n\t\t<li id=\"li_10\">\n\t\t\t<label class=\"description\" for=\"element_10\">Поддержки </label>\n\t\t\t<div>\n\t\t\t\t<select class=\"element select medium\" id=\"element_10\" name=\"element_10\">\n\t\t\t\t\t<option value=\"\" selected=\"selected\"></option>\n\t\t\t\t\t<option value=\"Белов\" >   Белов</option>\n\t\t\t\t\t<option value=\"Пестов\" >  Пестов</option>\n\t\t\t\t\t<option value=\"Кононов\" > Кононов</option>\n\t\t\t\t\t<option value=\"Зорин\" >   Зорин</option>\n\t\t\t\t\t<option value=\"Годунов\" > Годунов</option>\n\t\t\t\t\t<option value=\"Камашев\" > Камашев</option>\n\t\t\t\t\t<option value=\"Вахрушев\" >Вахрушев</option>\n\t\t\t\t\t<option value=\"Петров\" >  Петров</option>\n\t\t\t\t</select>\n\t\t\t</div>\n\t\t</li>\n\t\t<li id=\"pl_10\">\n\t\t\t<label class=\"description\" for=\"polymer\">Принтер </label>\n\t\t\t<div>\n\t\t\t\t<select class=\"element select medium\" id=\"polymer\" name=\"polymer\">\n\t\t\t\t\t<option value=\"yellow\" >Aureus</option>\n\t\t\t\t\t<option value=\"grey\" >Perfactory</option>\n\t\t\t\t</select>\n\t\t\t</div>\n\t\t</li>\n\t\t<li id=\"li_5\">\n\t\t\t<label class=\"description\" for=\"element_5\">Дата отливки </label>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_5_2\" name=\"element_5_2\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_5_2\">DD</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_5_1\" name=\"element_5_1\" class=\"element text\" size=\"2\" maxlength=\"2\" value=\"\" type=\"text\"> /\n\t\t\t\t<label for=\"element_5_1\">MM</label>\n\t\t\t</span>\n\t\t\t<span>\n\t\t\t\t<input id=\"element_5_3\" name=\"element_5_3\" class=\"element text\" size=\"4\" maxlength=\"4\" value=\"\" type=\"text\">/\n\t\t\t\t<label for=\"element_5_3\">YYYY</label>\n\t\t\t</span>\n\t\t\t<span id=\"calendar_5\">\n\t\t\t\t<img id=\"cal_img_5\" class=\"datepicker\" src=\"calendar.gif\" alt=\"Pick a date.\">\n\t\t\t</span>\n\t\t\t<script type=\"text/javascript\">\n\t\t\t\tCalendar.setup(\n\t\t\t\t{\n\t\t\t\t\tinputField: \"element_5_3\",\n\t\t\t\t\tbaseField: \"element_5\",\n\t\t\t\t\tdisplayArea: \"calendar_5\",\n\t\t\t\t\tbutton: \"cal_img_5\",\n\t\t\t\t\tifFormat: \"%B %e, %Y\",\n\t\t\t\t\tonSelect: selectDate\n\t\t\t\t});\n\t\t\t</script>\n\n\t\t</li>\n\t\t<li id=\"li_6\">\n\t\t\t<label class=\"description\" for=\"element_6\">Комментарий </label>\n\t\t\t<div>\n\t\t\t\t<input id=\"element_6\" name=\"element_6\" class=\"element text medium\" type=\"text\" maxlength=\"255\" value=\"\" />\n\t\t\t</div>\n\t\t</li>\n\n\t\t<li class=\"buttons\">\n\t\t\t<input type=\"hidden\" name=\"form_id\" value=\"812401\" />\n\t\t\t<input type=\"hidden\" name=\"jew_id\" 000 />\n\t\t\t<input type=\"hidden\" name=\"row_id\" 000 />\n\t\t\t<input type=\"hidden\" name=\"indx\" 000 />\n\t\t\t<input type=\"hidden\" name=\"login\" 000 />\n\t\t\t<input id=\"saveForm\" class=\"button_text\" type=\"submit\" name=\"submit\" value=\"Сохранить\" />\n\t\t\t<input id=\"saveForm\" class=\"button_text\" type=\"button\" name=\"cancel\" value=\"Отмена\" onclick=\"PopUpHide()\" />\n\t\t</li>\n\t</ul>\n</form>\n\n<iframe id=\"hiddenframe\" name=\"hiddenframe\" style=\"width:0px; height:0px; border:0px\"></iframe>;\n<div id=\"res\"></div>;\n\n<?php\n$login = $_SESSION['login'];\n// connect();\n// $sql              = \"SELECT * FROM `users` WHERE `login`='\" . $login . \"'\";\n// $query            = mysql_query($sql) or die(\"<p>Невозможно выполнить запрос: \" . mysql_error() . \". Ошибка произошла в строке \" . __LINE__ . \"</p>\");\n// $data             = mysql_fetch_array($query);\n\n$row = DB::run(\"SELECT * FROM users WHERE login=?\", [$login])->fetch();\n$user_name = $row['name'];\n\n\n\n$db_table_to_show = 'master_items';\n\nif ($login ==\"admin\") {\n\t$qr_result = mysql_query(\"select * from \" . $db_table_to_show . \" ORDER BY designer DESC\");\n} else {\n\t$qr_result = mysql_query(\"select * from \" . $db_table_to_show . \" where designer = '\" . $user_name . \"' ORDER BY indx DESC  \") or die(mysql_error());\n}\n\necho '<div id=\"pager\" class =\"hdr\">';\necho '\t<form>';\necho '\t<div>';\necho '\t\t<img src=\"js/tablesorter/addons/pager/icons/first.png\" class=\"first\"/>';\necho '\t\t<img src=\"js/tablesorter/addons/pager/icons/prev.png\" class=\"prev\"/>';\necho '\t\t<input type=\"text\" class=\"pagedisplay\"/>';\necho '\t\t<img src=\"js/tablesorter/addons/pager/icons/next.png\" class=\"next\"/>';\necho '\t\t<img src=\"js/tablesorter/addons/pager/icons/last.png\" class=\"last\"/>';\necho '\t</div';\necho '\t<div>';\necho '\t\t<p id=\"usr\" class=\"user_name\"> &nbsp&nbsp&nbsp'.$user_name;\nif ($login !=\"admin\") {\n\techo '&nbsp&nbsp&nbsp&nbsp <input type=\"button\" value=\"Новое изделие\" onclick=\"newItem()\">';\n}\necho '\t\t&nbsp&nbsp&nbsp&nbsp<a class=\"txt\" href=\"logout.php\">Выход</a> </p>';\necho '\t</div';\necho '\t</form>';\n\n\necho '<table id=\"activeTable\" border=\"1\" class=\"main\" >';\necho '<thead class=\"t_head\">';\necho '<tr>';\necho '<th id=\"num\" width=50px  data-name=\"First\" >Номер</th>';\necho '<th width=65px>Артикул</th>';\necho '<th class=\"{sorter: false}\" width=180px style=\"border:2px solid\">Эскиз</th>';\nif ($login ==\"admin\") {\n\techo '<th id=\"designer\" width=180px >Дизайнер</th>';\n}\n//else echo '<th id=\"designer\" width=0px >Дизайнер</th>';\necho '<th width=100px>Дата нарезки</th>';\necho '<th width=100px>Поставили на печать</th>';\necho '<th width=120px>Сняли с печати</th>';\necho '<th width=150px>Дата отливки</th>';\nif ($login ==\"admin\") {\n\techo '<th width=150px>Поддержки</th>';\n\techo '<th width=80px>Повторная печать</th>';\n}\necho '<th width=200px>Комментарий</th>';\necho '<th width=44px></th>';\necho '<th class=\"e_cell\" width=5px> </th>';\n\necho '</tr>';\necho '</thead>';\necho '<tbody>';\n\nwhile ($data = mysql_fetch_array($qr_result)) {\n\techo '<tr class=\"' . $data['polymer'] . '\">';\n\techo '<td id=\"ind\" width=50px>'  . $data['indx'] . '</td>';\n\techo '<td width=65px>'  . $data['artikul'] . '</td>';\n\techo '<td width=180px class=\"render\"><img class=\"r_image\" src=' . $data['img_path'] .'> </td>';\n\tif ($login ==\"admin\") {\n\t\techo '<td id=\"designer\" width=180px >' . $data['designer'] . '</td>';\n\t}\n    //else echo '<td id=\"designer\" width=180px >' . $data['designer'] . '</td>';\n\techo '<td id=\"prod_date\" width=100px>' . date(\"d.m.Y\", strtotime($data['prod_date'])) . '</td>';\n\techo '<td id=\"start_print\" width=100px>' . date(\"d.m.Y\", strtotime($data['start_print'])) . '</td>';\n\techo '<td id=\"end_print\" width=120px>' . date(\"d.m.Y\", strtotime($data['end_print'])) . '</td>';\n\techo '<td id=\"cast\" width=150px>' . date(\"d.m.Y\", strtotime($data['cast'])) . '</td>';\n\techo '</td>';\n\tif ($login ==\"admin\") {\n\t\techo '<td id=\"support\" width=150px>' . $data['support'] . '</td>';\n\t\tif ($data['reprint']) {\n\t\t\techo '<td width=80px class=\"reprint\"> '.$data['reprint'] .'</td>';\n\t\t} else {\n\t\t\techo '<td width=80px ></td>';\n\t\t}\n\t}\n\techo '<td id=\"comment\" width=200px>' . $data['comment'] . '</td>';\n\techo '<td id= \"e_button\" width=32px style=\"vertical-align:middle\"> <button id=\"shb\" onCLick=editTable(this); > <img src=\"pencil.png\" width=24px style=\"vertical-align: middle\"></button>  </td>';\n\techo '<td id=\"jew_id\" class=\"e_cell\" width=5px>' . $data['num'] . '</td>';\n\techo '</tr>';\n}\necho '</tbody>';\necho '</table>';\nmysql_close();\n?>\n\n</body>\n</html>\n",
-			"file": "/C/Winginx/home/master/public_html/index.php",
-			"file_size": 18315,
-			"file_write_time": 131674925790552254,
+			"file": "/D/perfactory/Perfactory/card_dump/unlimited_lamp/UID_4D7C3AC7_2018-05-04_16-54-458041384310971936711",
 			"settings":
 			{
-				"buffer_size": 17301,
-				"line_ending": "Windows"
+				"buffer_size": 2293,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Winginx/home/master/public_html/index.php",
+			"settings":
+			{
+				"buffer_size": 19487,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "/C/Winginx/home/master/public_html/upload.php",
 			"settings":
 			{
-				"buffer_size": 6997,
+				"buffer_size": 5513,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -583,8 +589,17 @@
 			"file": "upload.php",
 			"settings":
 			{
-				"buffer_size": 1351,
+				"buffer_size": 1348,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Александр/Downloads/taglist_old.dat",
+			"settings":
+			{
+				"buffer_size": 6040,
+				"encoding": "Hexadecimal",
 				"line_ending": "Unix"
 			}
 		},
@@ -605,7 +620,7 @@
 	"command_palette":
 	{
 		"height": 354.0,
-		"last_filter": "rein",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -1004,6 +1019,9 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Александр/Downloads/taglist.dat",
+		"/C/Users/Александр/taglist__.dat",
+		"/C/Users/Александр/dump.bin",
 		"/C/Winginx/home/wp_start/public_html/getImages.php",
 		"/E/Alexandr/Downloads/NomData (1).xml",
 		"/C/Winginx/home/wp_start/public_html/page-home.php",
@@ -1027,7 +1045,6 @@
 		"/C/Winginx/home/master/public_html/index.php",
 		"/C/Winginx/home/master/public_html/на печать.todo",
 		"/C/Winginx/home/master/public_html/~ajax/database.sql",
-		"/C/Users/Александр/Downloads/taglist.dat",
 		"/C/Users/Александр/Downloads/180",
 		"/C/Users/Александр/Downloads/120-180",
 		"/C/Users/Александр/taglist.dat",
@@ -1129,9 +1146,7 @@
 		"/C/Users/Александр/Downloads/PhotoPizza_v2.1.0/PhotoPizza_v2.1.0/photopizza/presetManager.h",
 		"/E/Alexandr/Downloads/NomData.xml",
 		"/C/Users/Александр/Downloads/Telegram_4.4.2_apk-dl.com/classes.dex",
-		"/C/Users/Александр/Downloads/Telegram_4.4.2_apk-dl.com/isoparser-default.properties",
-		"/C/Users/Александр/Downloads/Telegram_4.4.2_apk-dl.com/build-data.properties",
-		"/C/Users/Александр/Downloads/Telegram_4.4.2_apk-dl.com/META-INF/CERT.SF"
+		"/C/Users/Александр/Downloads/Telegram_4.4.2_apk-dl.com/isoparser-default.properties"
 	],
 	"find":
 	{
@@ -1326,7 +1341,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -1512,7 +1527,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
@@ -1582,7 +1597,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -1772,7 +1787,7 @@
 						"translation.y": 1075.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1781,15 +1796,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6614,
+						"buffer_size": 6582,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								206,
+								202
 							]
 						],
 						"settings":
@@ -1816,61 +1831,61 @@
 							},
 							"bracket_highlighter.clone_regions":
 							[
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
-								"bh_angle_content"
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
 							],
 							"bracket_highlighter.locations":
 							{
@@ -1889,63 +1904,63 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
 							],
-							"function_name_status_row": 0,
+							"function_name_status_row": 6,
 							"origPos":
 							[
 								0.0,
@@ -1959,29 +1974,221 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "/C/Winginx/home/master/public_html/index.php",
+					"file": "/D/perfactory/Perfactory/card_dump/unlimited_lamp/UID_4D7C3AC7_2018-05-04_16-54-458041384310971936711",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17301,
+						"buffer_size": 2293,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2892,
-								2943
+								615,
+								615
 							]
 						],
 						"settings":
 						{
 							"SL.19.region_keys":
+							[
+							],
+							"SL.29.region_keys":
+							[
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"function_name_status_row": 21,
+							"origPos":
+							[
+								0.0,
+								0.0
+							],
+							"syncScroll": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Winginx/home/master/public_html/index.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19487,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"SL.19.region_keys":
+							[
+							],
+							"SL.20.region_keys":
 							[
 							],
 							"SL.29.region_keys":
@@ -2165,7 +2372,7 @@
 								"bh_regex_close",
 								"bh_regex_content"
 							],
-							"function_name_status_row": 76,
+							"function_name_status_row": 0,
 							"origPos":
 							[
 								0.0,
@@ -2178,24 +2385,24 @@
 						"translation.y": 1420.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "/C/Winginx/home/master/public_html/upload.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6997,
+						"buffer_size": 5513,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2591,
-								2593
+								0,
+								0
 							]
 						],
 						"settings":
@@ -2203,11 +2410,14 @@
 							"SL.20.region_keys":
 							[
 							],
+							"SL.21.region_keys":
+							[
+							],
 							"SL.33.region_keys":
 							[
 							],
 							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone": 20,
+							"bracket_highlighter.clone": -1,
 							"bracket_highlighter.clone_locations":
 							{
 								"close":
@@ -2303,61 +2513,61 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
 							],
 							"function_name_status_row": 58,
 							"origPos":
@@ -2374,11 +2584,11 @@
 						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "/C/Winginx/home/wp_start/public_html/index.php",
 					"semi_transient": false,
 					"settings":
@@ -2396,6 +2606,12 @@
 						],
 						"settings":
 						{
+							"SL.21.region_keys":
+							[
+							],
+							"SL.22.region_keys":
+							[
+							],
 							"SL.27.region_keys":
 							[
 							],
@@ -2487,11 +2703,11 @@
 						"translation.y": 75.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "/C/Winginx/home/wp_start/public_html/js/functions.js",
 					"semi_transient": false,
 					"settings":
@@ -2509,6 +2725,12 @@
 						],
 						"settings":
 						{
+							"SL.22.region_keys":
+							[
+							],
+							"SL.23.region_keys":
+							[
+							],
 							"bracket_highlighter.busy": false,
 							"bracket_highlighter.clone": -1,
 							"bracket_highlighter.clone_locations":
@@ -2685,11 +2907,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "/C/Winginx/home/support/public_html/upload.php",
 					"semi_transient": false,
 					"settings":
@@ -2711,6 +2933,9 @@
 							[
 							],
 							"SL.23.region_keys":
+							[
+							],
+							"SL.24.region_keys":
 							[
 							],
 							"bracket_highlighter.busy": false,
@@ -2874,11 +3099,11 @@
 						"translation.y": 325.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "js/search.js",
 					"semi_transient": false,
 					"settings":
@@ -2897,6 +3122,9 @@
 						"settings":
 						{
 							"SL.24.region_keys":
+							[
+							],
+							"SL.25.region_keys":
 							[
 							],
 							"bracket_highlighter.busy": false,
@@ -3077,11 +3305,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "/C/Winginx/home/wp_start/public_html/get_indexes.php",
 					"semi_transient": false,
 					"settings":
@@ -3099,6 +3327,12 @@
 						],
 						"settings":
 						{
+							"SL.25.region_keys":
+							[
+							],
+							"SL.26.region_keys":
+							[
+							],
 							"SL.30.region_keys":
 							[
 							],
@@ -3263,17 +3497,17 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": "form.css",
 					"semi_transient": false,
 					"settings":
@@ -3292,6 +3526,9 @@
 						"settings":
 						{
 							"SL.26.region_keys":
+							[
+							],
+							"SL.27.region_keys":
 							[
 							],
 							"bracket_highlighter.busy": false,
@@ -3458,24 +3695,24 @@
 						"translation.y": 23565.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 13,
 					"file": "upload.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1351,
+						"buffer_size": 1348,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								438,
+								438
 							]
 						],
 						"settings":
@@ -3492,6 +3729,192 @@
 							"SL.27.region_keys":
 							[
 							],
+							"SL.28.region_keys":
+							[
+							],
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": 28,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"function_name_status_row": 15,
+							"origPos":
+							[
+								0.0,
+								0.0
+							],
+							"syncScroll": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/C/Users/Александр/Downloads/taglist_old.dat",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6040,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								479,
+								479
+							]
+						],
+						"settings":
+						{
 							"bracket_highlighter.busy": false,
 							"bracket_highlighter.clone": -1,
 							"bracket_highlighter.clone_locations":
@@ -3516,46 +3939,11 @@
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -3565,7 +3953,42 @@
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
-								"bh_c_define_content"
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
 							],
 							"bracket_highlighter.locations":
 							{
@@ -3584,80 +4007,80 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_round_content"
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
 							],
-							"function_name_status_row": 0,
+							"function_name_status_row": 11,
 							"origPos":
 							[
 								0.0,
 								0.0
 							],
 							"syncScroll": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 15,
 					"file": "view.css",
 					"semi_transient": true,
 					"settings":
@@ -5147,6 +5570,9 @@
 							"SL.28.region_keys":
 							[
 							],
+							"SL.29.region_keys":
+							[
+							],
 							"bracket_highlighter.busy": false,
 							"bracket_highlighter.clone": 84,
 							"bracket_highlighter.clone_locations":
@@ -5310,7 +5736,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 15,
 					"type": "text"
 				}
 			]
@@ -5344,7 +5770,7 @@
 		"cols":
 		[
 			0.0,
-			0.647181008902,
+			0.379960106289,
 			1.0
 		],
 		"rows":
@@ -5436,7 +5862,7 @@
 		],
 		"width": 392.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

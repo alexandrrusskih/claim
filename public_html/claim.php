@@ -64,7 +64,7 @@ if ($rws!='') {
         $ind=$row['ind'];
         $comment = $row['comment'];
         $imga = 'foto/' . $art . '.jpg';
-        echo '<tr  ondblclick="deleteRow(this)">';
+        echo '<tr  ondblclick="edit_row(this)">';
         echo '<td ><img src="' . $imga . '" /></td>';
         echo '<td style="width:200px";"><strong>' . $art . '</strong></br><hr>' . $type . ' </td>';
         if ($size) {
@@ -74,7 +74,7 @@ if ($rws!='') {
         }
         echo '<td style ="padding:10">' . $probe . '<hr>' . $color . '    </td>';
         echo '<td style="width:200px;  padding:10; ">' . $gemm . ' </td>';
-        echo '<td style="width:200px;  padding:10; ">' . $comment . ' </td>';
+        echo '<td style=" color: #ff0000; width:200px;  padding:10; "><strong>' . $comment . '</strong> </td>';
         echo '</tr>';
     }
     echo '</tbody>';
@@ -85,52 +85,42 @@ if ($rws!='') {
 
 
 <script>
-
 var xmlhttp1;
 
 	function scanfolder($dir) {
 	  $files1 = scandir($dir);
 	}
 
-
 function deleteRow(row) {
-  var rIndex = row.rowIndex;
-
- $('#deleteRow').css("visibility","visible");
- $('#deleteRow :input[name="action"]').val("del");
- var rws = "<?php echo $rws ?>";
- var ind = <?php echo $cl ?>;
-var pat=/\d+/gi;
-// console.log(rws);
-
-var newRws='';
-var myArray = rws.match(pat);
-var n=1;
-for (var i = 0; i < myArray.length; i++) {
-if (i+1!=rIndex)newRws=newRws+myArray[i]+",";
-}
-newRws=newRws.slice(0,-1);
- // var drow=myArray[(rIndex-1)];
- // console.log(newRws);
-
- $('#deleteRow :input[name="drow"]').val(myArray[(rIndex-1)]);
- $('#deleteRow :input[name="rows"]').val(newRws);
- $('#deleteRow :input[name="claim"]').val(ind);
-
+	var rIndex = $('#deleteRow :input[name="rows"]').val();
+	var rws = "<?php echo $rws ?>";
+	var ind = <?php echo $cl ?>;
+	var pat = /\d+/gi;
+	var drow = $('#form_52193 :input[name="drow"]').val();
+	var newRws = '';
+	var myArray = rws.match(pat);
+	var n = 1;
+	for(var i = 0; i < myArray.length; i++) {
+		if(i != rIndex) newRws = newRws + myArray[i] + ",";
+	}
+	newRws = newRws.slice(0, -1);
+	$('#form_52193 :input[name="drow"]').val(drow);
+	$('#form_52193 :input[name="rows"]').val(newRws);
+	$('#form_52193 :input[name="claim"]').val(ind);
+	$('#deleteRow').css("visibility", "visible");
+	$('#form_52193 :input[name="action"]').val("del");
 }
 
-
-function getData(){
-
-var art= $('#form_52193 :input[name="artikul"]').val();
-if (window.XMLHttpRequest) xmlhttp1 = new XMLHttpRequest();
-else
-	if (window.ActiveXObject) xmlhttp1 = new ActiveXObject("Microsoft.XMLHTTP");
-else alert("Извините! Ваш браузер не поддерживает XMLHTTP!");
-var url = "parseXML.php?art=" +art;
-xmlhttp1.open("GET", url, true);
-xmlhttp1.send();
-xmlhttp1.onreadystatechange = getXML;
+function getData() {
+	var art = $('#form_52193 :input[name="artikul"]').val();
+	if(window.XMLHttpRequest) xmlhttp1 = new XMLHttpRequest();
+	else
+	if(window.ActiveXObject) xmlhttp1 = new ActiveXObject("Microsoft.XMLHTTP");
+	else alert("Извините! Ваш браузер не поддерживает XMLHTTP!");
+	var url = "parseXML.php?art=" + art;
+	xmlhttp1.open("GET", url, true);
+	xmlhttp1.send();
+	xmlhttp1.onreadystatechange = getXML;
 }
 
 function getXML() {
@@ -143,47 +133,52 @@ function getXML() {
   }
 
 
-function edit_row(row){
-$row=$(row) ;
-var cells = $row.children();
-var txt=$(cells[1]).text().trim();
-var pat=/\d+/;
-var myArray = pat.exec(txt);
-$('#form_52193 :input[name="artikul"]').val(myArray[0]);
- pat=/\D+/;
- myArray = pat.exec(txt);
-$('#form_52193 :input[name="vid"]').val(myArray[0]);
-txt=$(cells[2]).text().trim();  //-size
-$('#form_52193 :input[name="size"]').val(txt);
-txt=$(cells[3]).text().trim();
-pat=/\d+/;
-myArray = pat.exec(txt);
-$('#form_52193 :input[name="probe"]').val(myArray[0]);
-pat=/\D+/;
-myArray = pat.exec(txt);
-$('#form_52193 :input[name="gold"]').val(myArray[0]);
-txt=$(cells[4]).text().trim();  //font-size
-$('#form_52193 :input[name="gemm"]').val(txt);
-txt=$(cells[5]).text().trim();  //font-size
-$('#form_52193 :input[name="comment"]').val(txt);
-PopUpShow();
+function edit_row(row) {
+	var rIndex = row.rowIndex;
+	$row = $(row);
+	var cells = $row.children();
+	var txt = $(cells[1]).text().trim();
+	var pat = /\d+/;
+	var myArray = pat.exec(txt);
+	$('#form_52193 :input[name="artikul"]').val(myArray[0]);
+	pat = /\D+/;
+	myArray = pat.exec(txt);
+	$('#form_52193 :input[name="vid"]').val(myArray[0]);
+	txt = $(cells[2]).text().trim(); //-size
+	$('#form_52193 :input[name="size"]').val(txt);
+	txt = $(cells[3]).text().trim();
+	pat = /\d+/;
+	myArray = pat.exec(txt);
+	$('#form_52193 :input[name="probe"]').val(myArray[0]);
+	pat = /\D+/;
+	myArray = pat.exec(txt);
+	$('#form_52193 :input[name="gold"]').val(myArray[0]);
+	txt = $(cells[4]).text().trim(); //font-size
+	$('#form_52193 :input[name="gemm"]').val(txt);
+	txt = $(cells[5]).text().trim(); //font-size
+	$('#form_52193 :input[name="comment"]').val(txt);
+	$('#form_52193 :input[name="action"]').val("edit");
+	var rws = "<?php echo $rws ?>";
+	var pat = /\d+/gi;
+	var myArray = rws.match(pat);
+	$('#form_52193 :input[name="drow"]').val(myArray[(rIndex - 1)]);
+	$('#deleteRow :input[name="rows"]').val(rIndex - 1);
+	$('#form_52193 :input[name="submit"]').val("Сохранить");
+	$('#form_52193 :input[name="delete"]').show();
+	PopUpShow();
 }
 
 
-function ShowLoader(){
-   $('#loader').css("visibility","visible");
-PopUpHide();
-
+function ShowLoader() {
+	$('#loader').css("visibility", "visible");
+	PopUpHide();
 }
 
 	function PopUpShow() {
-	  // $("#form_52193").show();
-$('#form_52193').css("visibility","visible");
-
+    $('#form_52193').css("visibility","visible");
 	}
 
 	function PopUpHide() {
-	  // $("#form_52193").hide();
     $('#form_52193').css("visibility","hidden");
     $('#deleteRow').css("visibility","hidden");
 	}
@@ -195,8 +190,12 @@ $('#form_52193').css("visibility","visible");
 	function new_row() {
 	  var rws = "<?php echo $rws ?>";
 	  var ind = <?php echo $cl ?>;
-	  $('#form_52193 :input[name="rows"]').val(rws);
+    document.getElementById("form_52193").reset();
+    $('#form_52193 :input[name="rows"]').val(rws);
 	  $('#form_52193 :input[name="claim"]').val(ind);
+	  $('#form_52193 :input[name="action"]').val("new");
+    $('#form_52193 :input[name="submit"]').val("Добавить");
+    $('#form_52193 :input[name="delete"]').hide();
 	  PopUpShow();
 	}
 
@@ -215,7 +214,7 @@ function  Close_claim(){
     });
 	</script>
 
-  <form id="deleteRow" class="fcontainer" style="width:auto; top:350px; left:50%;" enctype="multipart/form-data" visible="false" method="post" target="hiddenframe" action="upload.php" onsubmit="ShowLoader()">
+  <form id="deleteRow" class="fcontainer" style="z-index: 900; width:auto; top:350px; left:50%;" enctype="multipart/form-data" visible="false" method="post" target="hiddenframe" action="upload.php" onsubmit="ShowLoader()">
   <ul>
     <li id="li_2">
       <label class="description" for="artikul">Удалить строку? </label>
@@ -232,7 +231,7 @@ function  Close_claim(){
   </ul>
 </form>
 
-	<form id="form_52193" class="fcontainer" enctype="multipart/form-data" visible="false" method="post"  action="upload.php" target="hiddenframe" onsubmit="ShowLoader()">
+	<form id="form_52193" class="fcontainer" enctype="multipart/form-data" visible="false" method="post"  action="upload.php"  target="hiddenframe" onsubmit="ShowLoader()">
   <ul>
     <li id="li_2">
       <label class="description" for="artikul">Артикул </label>
@@ -299,10 +298,13 @@ function  Close_claim(){
 
     <li class="buttons">
       <input type="hidden" name="rows" value="" />
+      <input type="hidden" name="drow" value="" />
       <input type="hidden" name="claim" value="" />
+      <input type="hidden" name="action" value="" />
       <input type="hidden" name="form_id" value="52193" />
       <input id="saveForm" class="submit-button" type="submit" name="submit" value="Добавить" />
-      <input onclick="PopUpHide()" class="submit-button" type="button" name="submit" value="Отмена" />
+      <input onclick="PopUpHide()" class="submit-button" type="button" name="cancel" value="Отмена" />
+      <input onclick="deleteRow()" class="submit-button" type="submit" name="delete" value="Удалить" />
     </li>
   </ul>
 </form>

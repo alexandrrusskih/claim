@@ -17,23 +17,31 @@ $drow=$_POST['drow'];
 
 $new=$rws;
 
-if ($_POST['action'] !="del") {
-    $stmt = DB::run("SET NAMES utf8");
+
+$stmt = DB::run("SET NAMES utf8");
+switch ($_POST['action']) {
+case 'new':
     $stmt = DB::prepare('INSERT INTO claim_row VALUES (?,?,?,?,?,?,?,NULL,?,?)');
     $arg=['',$artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment];
     $stmt->execute($arg);
-
     $stmt = DB::run('SELECT LAST_INSERT_ID()')->fetch();
     $v=strval($stmt['LAST_INSERT_ID()']);
-
     if ($rws!='') {
         $new=$rws.','.$v;
     } else {
         $new=$v;
     }
-} else {
+    break;
+case 'del':
     $stmt = DB::run("DELETE FROM claim_row  WHERE ind=?", [ $drow]);
+    break;
+case 'edit':
+$stmt = DB::prepare('UPDATE claim_row SET artikul=?,  size=?, probe=?, type=?, colour=?, numer=?, gemm=?, comment=? WHERE ind=?');
+$arg=[$artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment,$drow];
+$stmt->execute($arg);
+  break;
 }
+
 
 
 
