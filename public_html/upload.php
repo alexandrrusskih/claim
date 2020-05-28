@@ -16,8 +16,6 @@ $claim=$_POST['claim'];
 $drow=$_POST['drow'];
 $new=$rws;
 
-
-
 $uploaddir    = "foto/uploads/";
 $imgupload=false;
 $uploadedFile = $uploaddir . basename($_FILES["image_file"]["name"]);

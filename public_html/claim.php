@@ -73,16 +73,25 @@ if ($rws!='') {
         $ind=$row['ind'];
         $comment = $row['comment'];
 
-        // if ($imga=="foto/uploads/" || $imga=="") {
-        //     $imga = 'foto/' . $art . '.jpg';
-        // }
+        $row1 = DB::run("SELECT * FROM master_items WHERE artikul=?", [$art])->fetch();
+        $locker=$row1['exclusive_locker'];
+
+        if ($imga=="foto/uploads/" || $imga=="") {
+            $imga = 'foto/' . $art . '.jpg';
+        }
 
         echo '<tr  ondblclick="edit_row(this)">';
         echo '<td ><img src="' . $imga . '" /></td>';
         echo '<td style="width:200px";"><strong>' . $art . '</strong></br><hr>' . $type . ' </td>';
         if ($size) {
             echo '<td style= padding:10px "><strong>' . $size . '<strong> </td>';
-        } else {
+        }
+        else if ($locker) {
+            echo '<td style= padding:10px "><strong>' . $locker . '<strong> </td>';
+        }
+
+
+        else {
             echo '<td > </td>';
         }
         echo '<td style ="padding:10">' . $probe . '<hr>' . $color . '    </td>';
@@ -200,6 +209,7 @@ function edit_row(row) {
 	$row = $(row);
 	var cells = $row.children();
 	var txt = $(cells[1]).text().trim();
+
 	var pat = /\d+/;
 	var myArray = pat.exec(txt);
 	$('#form_52193 :input[name="artikul"]').val(myArray[0]);
@@ -214,7 +224,8 @@ function edit_row(row) {
 	$('#form_52193 :input[name="probe"]').val(myArray[0]);
 	pat = /\D+/;
 	myArray = pat.exec(txt);
-	$('#form_52193 :input[name="gold"]').val(myArray[0]);
+  console.log({txt});
+if(myArray)  $('#form_52193 :input[name="gold"]').val(myArray[0]);
 	txt = $(cells[4]).text().trim(); //font-size
 	$('#form_52193 :input[name="gemm"]').val(txt);
 	txt = $(cells[5]).text().trim(); //font-size
@@ -331,6 +342,7 @@ echo '<option value="'.$data['artikul'].'">';
           <option value="Желтое" >Желтое</option>
           <option value="БЗ+ЖЗ" >БЗ+ЖЗ</option>
           <option value="Евро" >Евро</option>
+          <option value="ЕЗ+КЗ+БЗ" >ЕЗ+КЗ+БЗ</option>
         </select>
       </div>
     </li>
