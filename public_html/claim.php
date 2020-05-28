@@ -44,16 +44,19 @@ echo '<input name="add" class="submit-button" type="button" value="Добави�
 echo '<input id="cp" name="c_page" value="' . $current_sheet . '" type="HIDDEN" />';
 echo '</form>';
 
+
+
+
 if ($rws!='') {
     echo '<table  border="1"  cellspacing="0" cellpadding="0" >';
     echo '<tbody>';
-
     echo '  <tr>';
     echo '<th>&nbsp;</th><th>Артикул</th><th>Размер</th><th>Проба</th><th>Вставка</th><th>Примечание</th>';
     echo '</tr>';
 
     for ($i = 0; $i < $count; $i++) {
         $row = DB::run("SELECT * FROM claim_row WHERE ind=?", [$rows[$i]])->fetch();
+        $imga=$row['image'];
         $art = $row['artikul'];
         $type = $row['type'];
         $color = $row['colour'];
@@ -63,13 +66,26 @@ if ($rws!='') {
         $num=$row['numer'];
         $ind=$row['ind'];
         $comment = $row['comment'];
-        $imga = 'foto/' . $art . '.jpg';
+
+        $row1 = DB::run("SELECT * FROM master_items WHERE artikul=?", [$art])->fetch();
+        $locker=$row1['exclusive_locker'];
+
+        if ($imga=="foto/uploads/" || $imga=="") {
+            $imga = 'foto/' . $art . '.jpg';
+        }
+
         echo '<tr  ondblclick="edit_row(this)">';
         echo '<td ><img src="' . $imga . '" /></td>';
         echo '<td style="width:200px";"><strong>' . $art . '</strong></br><hr>' . $type . ' </td>';
         if ($size) {
             echo '<td style= padding:10px "><strong>' . $size . '<strong> </td>';
-        } else {
+        }
+        else if ($locker) {
+            echo '<td style= padding:10px "><strong>' . $locker . '<strong> </td>';
+        }
+
+
+        else {
             echo '<td > </td>';
         }
         echo '<td style ="padding:10">' . $probe . '<hr>' . $color . '    </td>';
@@ -81,8 +97,6 @@ if ($rws!='') {
     echo '</table>';
 }
 ?>
-
-
 
 <script>
 var xmlhttp1;
@@ -138,6 +152,7 @@ function edit_row(row) {
 	$row = $(row);
 	var cells = $row.children();
 	var txt = $(cells[1]).text().trim();
+
 	var pat = /\d+/;
 	var myArray = pat.exec(txt);
 	$('#form_52193 :input[name="artikul"]').val(myArray[0]);
@@ -152,7 +167,8 @@ function edit_row(row) {
 	$('#form_52193 :input[name="probe"]').val(myArray[0]);
 	pat = /\D+/;
 	myArray = pat.exec(txt);
-	$('#form_52193 :input[name="gold"]').val(myArray[0]);
+  console.log({txt});
+if(myArray)  $('#form_52193 :input[name="gold"]').val(myArray[0]);
 	txt = $(cells[4]).text().trim(); //font-size
 	$('#form_52193 :input[name="gemm"]').val(txt);
 	txt = $(cells[5]).text().trim(); //font-size
@@ -237,7 +253,12 @@ function  Close_claim(){
       <label class="description" for="artikul">Артикул </label>
       <div>
         <!-- <input id="artikul" name="artikul" onchange="getData()" class="element text medium" type="text" maxlength="255" value="" /> -->
+<span>
         <input id="artikul" name="artikul"  class="element text medium" type="text" maxlength="255" value="" />
+</span>
+<span>
+        <input id="element_1" name="image_file" class="element file" type="file" accept="image/jpeg,image/png,image/gif"  >
+      </span>
       </div>
     </li>
     <li id="li_3">
@@ -245,10 +266,12 @@ function  Close_claim(){
       <div>
         <select class="element select medium" id="gold" name="gold">
             <option value="" selected="selected"></option>
+          <option value="Красное" >Красное</option>
           <option value="Белое" >Белое</option>
           <option value="Желтое" >Желтое</option>
           <option value="БЗ+ЖЗ" >БЗ+ЖЗ</option>
           <option value="Евро" >Евро</option>
+          <option value="ЕЗ+КЗ+БЗ" >ЕЗ+КЗ+БЗ</option>
         </select>
       </div>
     </li>
@@ -260,6 +283,7 @@ function  Close_claim(){
 						<option value="Кольцо" >Кольцо</option>
 						<option value="Серьги" >Серьги</option>
 						<option value="Брошь" >Брошь</option>
+						<option value="Брошь-Подвеска" >Брошь-Подвеска</option>
 						<option value="Подвеска" >Подвеска</option>
 						<option value="Браслет" >Браслет</option>
 						<option value="Запонки" >Запонки</option>

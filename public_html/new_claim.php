@@ -4,10 +4,19 @@ $print_date = $_POST['element_year'].'-'.$_POST['element_month'].'-'.$_POST['ele
 $claim_num= $_POST['claim_num'];
 if ($claim_num=='') {
 }
+$ind=$_POST['claim'];
+
+$act=$_POST['action'];
 
 $stmt = DB::run("SET NAMES utf8");
-$stmt = DB::prepare('INSERT INTO claim_table VALUES (?,?,?,NULL,NULL)');
-$arg=['',$print_date, $claim_num];
+
+if ($act=="edit") {
+    $arg=[$print_date, $claim_num,$ind];
+    $stmt = DB::prepare('UPDATE claim_table SET date=?,  num=? WHERE ind=?');
+} else {
+    $stmt = DB::prepare('INSERT INTO claim_table VALUES (?,?,?,NULL,NULL, NULL)');
+    $arg=['',$print_date, $claim_num];
+}
 $stmt->execute($arg);
 
 $stmt = DB::run('SELECT LAST_INSERT_ID()')->fetch();

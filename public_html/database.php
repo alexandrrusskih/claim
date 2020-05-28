@@ -1,9 +1,9 @@
 <?php
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'claim');
+define('DB_NAME', 'master_dbase');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'zWq4e34yjfm@');
 define('DB_CHAR', 'utf8');
 
 class DB
