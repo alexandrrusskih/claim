@@ -17,7 +17,7 @@ $count = count($rows);
 $ind = count($ind);
 
 echo '<form id="form_812401" " class="form-container" enctype="multipart/form-data" method="post" action="search.php"  />';
-echo '<input name="add" class="submit-button" type="button" value="Новая заявка"  onclick="PopUpShow()" />';
+echo '<input name="add" class="submit-button" type="button" value="Новая заявка"  onclick="new_claim()" />';
 echo '<input id="cp" name="c_page" value="' . $current_sheet . '" type="HIDDEN" />';
 echo '</form>';
 echo '<table class="claim_table"  border="1"  cellspacing="0" cellpadding="0" >';
@@ -26,10 +26,12 @@ echo '<tbody>';
 while ($row = $title->fetch(PDO::FETCH_LAZY)) {
     $num=$row['num'];
     $ind=$row['ind'];
+    $comment=$row['comment'];
     $date= date("d.m.Y", strtotime($row['date']));
     echo '<tr>';
     echo '<td onclick="open_claim(this)"; style="width:280px";"><strong> Заявка №' . $num . '</strong>  </td>';
-    echo '<td style=" width:200px; padding:10;  ">' . $date. ' </td>';
+    echo '<td ondblclick="edit_claim(this)" style=" width:200px; padding:10;  ">' . $date. ' </td>';
+    echo '<td  style=" width:200px; padding:10;  ">' . $comment. ' </td>';
     echo '<td style="visibility: hidden; border:none;">' . $ind. ' </td>';
     echo '</tr>';
 }
@@ -48,12 +50,31 @@ echo '</table>';
 </head>
 <script>
 
+ function edit_claim(row) {
+   // return;
+   var $row = $(row);
+   var $rw = $row.parents('tbody tr');
+   var ind = $rw.children('td');
+   var _date = $(ind[1]).text().trim().split(".");
+   var _claim = $(ind[3]).text().trim();
+   var _num = $(ind[0]).text().trim().split("Заявка №");
+
+   $('#form_new_claim :input[name="claim_num"]').val(_num[1]);
+   $('#form_new_claim :input[name="element_day"]').val(_date[0]);
+   $('#form_new_claim :input[name="element_month"]').val(_date[1]);
+   $('#form_new_claim :input[name="element_year"]').val(_date[2]);
+   $('#form_new_claim :input[name="action"]').val("edit");
+   $('#form_new_claim :input[name="claim"]').val(_claim);
+   $('#form_new_claim :input[name="submit"]').val("Сохранить");
+   PopUpShow();
+ }
+
   function open_claim(row) {
-         $('#loader').css("visibility","visible");
+    $('#loader').css("visibility","visible");
     var $row = $(row);
     var $rw = $row.parents('tbody tr');
     var ind = $rw.children('td');
-    var num = $(ind[2]).text().trim();
+    var num = $(ind[3]).text().trim();
     var loc = "claim.php?c_page=" + num.toString();
     window.open(loc, '_self');
   }
@@ -88,7 +109,10 @@ num=mes.indx;
 	}
 
   function new_claim(){
-    $("#form_new_claim").show();
+    $('#form_new_claim :input[name="claim_num"]').val("");
+    $('#form_new_claim :input[name="submit"]').val("Добавить");
+    $('#form_new_claim :input[name="action"]').val("new");
+    PopUpShow();
   }
 
   function add_claim(){
@@ -119,7 +143,7 @@ num=mes.indx;
 	  })
     </script>
 
-  <form id="form_new_claim" class="fcontainer" style="width:300px;" enctype="multipart/form-data" visible="false" method="post" target="hiddenframe"  action="new_claim.php" onsubmit="add_claim()">
+  <form id="form_new_claim" class="fcontainer" style="width:300px;" enctype="multipart/form-data" visible="false" method="post" target="hiddenframe"   action="new_claim.php" onsubmit="add_claim()">
   <ul>
     <li id="li_2">
       <label class="description" for="claim_num">Номер заявки </label>
@@ -155,12 +179,21 @@ num=mes.indx;
       					});
       				</script>
     </li>
+
+    <li id="li_4">
+      <label class="description" for="comment">Комментарий</label>
+      <div>
+        <input id="comment" name="comment" class="element text medium" type="text" maxlength="155" value=""  disabled>
+      </div>
+    </li>
+
       <li class="buttons">
       <input type="hidden" name="date" value="" />
       <input type="hidden" name="claim" value="" />
+      <input type="hidden" name="action" value="" />
       <input type="hidden" name="form_id" value="form_new_claim" />
       <input id="saveForm" class="submit-button" type="submit" name="submit" value="Добавить" />
-      <input onclick="PopUpHide()" class="submit-button" type="button" name="submit" value="Отмена" />
+      <input onclick="PopUpHide()" class="submit-button" type="button" name="cancel" value="Отмена" />
     </li>
   </ul>
 </form>

@@ -21,6 +21,12 @@ $cl=$_GET['c_page'];
 $rows= array();
 
 $row = DB::run("SET NAMES utf8");
+
+$artikul_array=DB::run('SELECT DISTINCT artikul, probe,  e_parts, w_parts, y_parts, r_parts FROM master_items ');
+
+
+
+
 $row = DB::run("SELECT * FROM claim_table WHERE ind=?", [$cl])->fetch();
 $rws=$row['row'];
 $claim_n=$row['num'];
@@ -44,16 +50,19 @@ echo '<input name="add" class="submit-button" type="button" value="Добави�
 echo '<input id="cp" name="c_page" value="' . $current_sheet . '" type="HIDDEN" />';
 echo '</form>';
 
+
+
+
 if ($rws!='') {
     echo '<table  border="1"  cellspacing="0" cellpadding="0" >';
     echo '<tbody>';
-
     echo '  <tr>';
     echo '<th>&nbsp;</th><th>Артикул</th><th>Размер</th><th>Проба</th><th>Вставка</th><th>Примечание</th>';
     echo '</tr>';
 
     for ($i = 0; $i < $count; $i++) {
         $row = DB::run("SELECT * FROM claim_row WHERE ind=?", [$rows[$i]])->fetch();
+        $imga=$row['image'];
         $art = $row['artikul'];
         $type = $row['type'];
         $color = $row['colour'];
@@ -63,7 +72,11 @@ if ($rws!='') {
         $num=$row['numer'];
         $ind=$row['ind'];
         $comment = $row['comment'];
-        $imga = 'foto/' . $art . '.jpg';
+
+        // if ($imga=="foto/uploads/" || $imga=="") {
+        //     $imga = 'foto/' . $art . '.jpg';
+        // }
+
         echo '<tr  ondblclick="edit_row(this)">';
         echo '<td ><img src="' . $imga . '" /></td>';
         echo '<td style="width:200px";"><strong>' . $art . '</strong></br><hr>' . $type . ' </td>';
@@ -82,10 +95,59 @@ if ($rws!='') {
 }
 ?>
 
-
-
 <script>
 var xmlhttp1;
+
+
+function getArtikul(e){
+console.log(e.value);
+$.ajax({
+    url: "readSQL.php",
+    type: "GET",
+    data: "dbase=master_items&field=artikul&val=" + e.value,
+    success: function(html) {
+        if (html) {
+            var obj = JSON.parse(html);
+            var t = new Object;
+            console.log(obj);
+
+	           $('#form_52193 :input[name="probe"]').val(obj['probe']);
+	           $('#form_52193 :input[name="vid"]').val(obj['jew_type']);
+              var g=0;
+              var gl='';
+
+             if (obj['r_parts']!='0')g+=1;
+             if (obj['y_parts']!='0')g+=2;
+             if (obj['w_parts']!='0')g+=4;
+             if (obj['e_parts']!='0')g+=8;
+
+             if (g==1) gl="Красное";
+             if (g==2) gl="Желтое";
+             if (g==4) gl="Белое";
+             if (g==8) gl="Евро";
+             if (g==6) gl="БЗ+ЖЗ";
+
+             $('#form_52193 :input[name="gold"]').val(gl);
+
+
+            //      slist.value = resp;
+        }
+    }
+});
+
+
+
+
+}
+
+$(document).ready(function() {
+  $("#form_52193").keydown(function(event){
+    if(event.keyCode == 13) {
+       event.preventDefault();
+       return false;
+      }
+   });
+})
 
 	function scanfolder($dir) {
 	  $files1 = scandir($dir);
@@ -237,7 +299,26 @@ function  Close_claim(){
       <label class="description" for="artikul">Артикул </label>
       <div>
         <!-- <input id="artikul" name="artikul" onchange="getData()" class="element text medium" type="text" maxlength="255" value="" /> -->
-        <input id="artikul" name="artikul"  class="element text medium" type="text" maxlength="255" value="" />
+<span>
+        <input list="arts"  id="artikul" name="artikul"  class="element text medium" maxlength="255" value="" autocomplete="on" onchange="getArtikul(this)">
+          <datalist id='arts'>
+<?php
+
+while ($data = $artikul_array->fetch(PDO::FETCH_ASSOC)) {
+
+echo '<option value="'.$data['artikul'].'">';
+
+}
+
+?>
+
+
+          </datalist>
+
+</span>
+<span>
+        <input id="element_1" name="image_file" class="element file" type="file" accept="image/jpeg,image/png,image/gif"  >
+      </span>
       </div>
     </li>
     <li id="li_3">
@@ -245,6 +326,7 @@ function  Close_claim(){
       <div>
         <select class="element select medium" id="gold" name="gold">
             <option value="" selected="selected"></option>
+          <option value="Красное" >Красное</option>
           <option value="Белое" >Белое</option>
           <option value="Желтое" >Желтое</option>
           <option value="БЗ+ЖЗ" >БЗ+ЖЗ</option>
@@ -260,6 +342,7 @@ function  Close_claim(){
 						<option value="Кольцо" >Кольцо</option>
 						<option value="Серьги" >Серьги</option>
 						<option value="Брошь" >Брошь</option>
+						<option value="Брошь-подвеска" >Брошь-подвеска</option>
 						<option value="Подвеска" >Подвеска</option>
 						<option value="Браслет" >Браслет</option>
 						<option value="Запонки" >Запонки</option>

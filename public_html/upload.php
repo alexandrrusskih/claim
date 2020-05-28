@@ -14,15 +14,31 @@ $num= 1;
 $rws=$_POST['rows'];
 $claim=$_POST['claim'];
 $drow=$_POST['drow'];
-
 $new=$rws;
 
+
+
+$uploaddir    = "foto/uploads/";
+$imgupload=false;
+$uploadedFile = $uploaddir . basename($_FILES["image_file"]["name"]);
+if (is_uploaded_file($_FILES["image_file"]["tmp_name"])) {
+    if (move_uploaded_file($_FILES["image_file"]["tmp_name"], $uploadedFile)) {
+        $data = $_FILES["image_file"];
+        $imgupload=true;
+    } else {
+        $data['errors'] = "Во время загрузки файла произошла ошибка";
+    }
+} else {
+    $data['errors'] = "Файл не  загружен";
+}
+
+if(!$artikul) $artikul=NULL;
 
 $stmt = DB::run("SET NAMES utf8");
 switch ($_POST['action']) {
 case 'new':
     $stmt = DB::prepare('INSERT INTO claim_row VALUES (?,?,?,?,?,?,?,NULL,?,?)');
-    $arg=['',$artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment];
+    $arg=[$uploadedFile,$artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment];
     $stmt->execute($arg);
     $stmt = DB::run('SELECT LAST_INSERT_ID()')->fetch();
     $v=strval($stmt['LAST_INSERT_ID()']);
@@ -36,8 +52,17 @@ case 'del':
     $stmt = DB::run("DELETE FROM claim_row  WHERE ind=?", [ $drow]);
     break;
 case 'edit':
-$stmt = DB::prepare('UPDATE claim_row SET artikul=?,  size=?, probe=?, type=?, colour=?, numer=?, gemm=?, comment=? WHERE ind=?');
-$arg=[$artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment,$drow];
+
+
+if($uploadedFile=='foto/uploads/')
+  {
+    $stmt = DB::prepare('UPDATE claim_row SET artikul=?,  size=?, probe=?, type=?, colour=?, numer=?, gemm=?, comment=? WHERE ind=?');
+    $arg=[$artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment,$drow];
+  }
+else{
+  $stmt = DB::prepare('UPDATE claim_row SET image=?, artikul=?,  size=?, probe=?, type=?, colour=?, numer=?, gemm=?, comment=? WHERE ind=?');
+  $arg=[$uploadedFile, $artikul, $size, $probe, $vid, $gold, $num, $gemm, $comment,$drow];
+}
 $stmt->execute($arg);
   break;
 }
